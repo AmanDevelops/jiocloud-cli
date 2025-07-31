@@ -1,6 +1,6 @@
 import argparse
 
-from utils.login import user_login_via_mobile
+from utils.login import user_login_via_cookie, user_login_via_mobile
 
 
 def main():
@@ -18,8 +18,14 @@ def main():
     mobile_parser.add_argument("--number", required=True)
     mobile_parser.set_defaults(func=user_login_via_mobile)
 
+    cookie_parser = login_subparsers.add_parser("cookie")
+    cookie_parser.add_argument("--value", required=True)
+    cookie_parser.set_defaults(func=user_login_via_cookie)
+
     args = parser.parse_args()
-    args.func(args)
+
+    if hasattr(args, 'func'):
+        args.func(args)
 
 
 if __name__ == "__main__":

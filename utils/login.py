@@ -171,3 +171,33 @@ def user_login_via_mobile(args: str) -> None:
         json.dump(user_creds, f)
 
     print("[Success]: User Logged in Succesfully...")
+
+
+def user_login_via_cookie(cookie: str) -> None:
+    """
+    User Login Functionality via cookie
+
+    Args:
+        - Cookie Value
+
+    return:
+        None
+
+    raises:
+        - ValueError: Invalid cookie value
+
+    """
+    cookieValue = cookie.value.split(":")
+
+    # TODO: Check for valid input using regex, raise value error
+
+    user_creds = HEADERS | {
+        "userId": cookieValue[0],
+        "Authorization": cookieValue[1],
+        "X-Device-Key": cookieValue[3],
+    }
+
+    with open(LOGIN_DETAILS_PATH, "w") as f:
+        json.dump(user_creds, f)
+
+    print("[Success]: User Logged in Succesfully...")
